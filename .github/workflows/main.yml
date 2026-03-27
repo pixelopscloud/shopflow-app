@@ -3,9 +3,6 @@ name: ShopFlow CI/CD Pipeline
 on:
   push:
     branches: [dev, staging, main]
-    paths:
-      - 'frontend/**'
-      - 'backend/**'
 
 jobs:
   code-scan:
@@ -44,7 +41,7 @@ jobs:
       - name: Build and Push Backend
         run: |
           docker build -t ${{ secrets.ACR_LOGIN_SERVER }}/shopflow-backend:${{ github.sha }} ./backend
-          docker push ${{ secrets.AZURE_LOGIN_SERVER }}/shopflow-backend:${{ github.sha }}
+          docker push ${{ secrets.ACR_LOGIN_SERVER }}/shopflow-backend:${{ github.sha }}
 
   deploy-dev:
     name: Deploy to Dev
@@ -65,4 +62,3 @@ jobs:
           git add .
           git commit -m "ci: update dev image tag to ${{ github.sha }}"
           git push
-# trigger pipeline update
