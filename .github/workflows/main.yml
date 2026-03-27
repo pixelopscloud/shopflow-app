@@ -4,6 +4,11 @@ on:
   push:
     branches: [dev, staging, main]
 
+# Ye permissions block Azure login ke liye lazmi hai
+permissions:
+  id-token: write
+  contents: read
+
 jobs:
   code-scan:
     name: SonarCloud Scan
@@ -31,8 +36,6 @@ jobs:
       - name: Azure Login
         uses: azure/login@v1
         with:
-          creds: '${{ secrets.AZURE_CREDENTIALS }}'
-          # Agar upar wala fail ho, to niche wale inputs ensure karein ke secrets maujood hain:
           client-id: ${{ secrets.AZURE_CLIENT_ID }}
           tenant-id: ${{ secrets.AZURE_TENANT_ID }}
           subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
