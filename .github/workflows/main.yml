@@ -65,3 +65,4 @@ jobs:
           git add .
           git commit -m "ci: update dev image tag to ${{ github.sha }}"
           git push
+# trigger pipeline update
