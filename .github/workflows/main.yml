@@ -4,7 +4,6 @@ on:
   push:
     branches: [dev, staging, main]
 
-# Ye permissions block Azure login ke liye lazmi hai
 permissions:
   id-token: write
   contents: read
@@ -62,9 +61,9 @@ jobs:
         with:
           repository: pixelopscloud/shopflow-infra
           token: ${{ secrets.GH_TOKEN }}
-      - name: Update Dev Image Tag
+      - name: Update Image Tag
         run: |
-          sed -i "s|tag:.*|tag: ${{ github.sha }}|g" helm/shopflow/values-dev.yaml
+          sed -i "s|tag:.*|tag: ${{ github.sha }}|g" helm/shopflow/values.yaml
           git config user.email "ci@shopflow.com"
           git config user.name "CI Bot"
           git add .
@@ -96,7 +95,7 @@ jobs:
           token: ${{ secrets.GH_TOKEN }}
       - name: Update Staging Image Tag
         run: |
-          sed -i "s|tag:.*|tag: ${{ github.sha }}|g" helm/shopflow/values-staging.yaml
+          sed -i "s|tag:.*|tag: ${{ github.sha }}|g" helm/shopflow/values.yaml
           git config user.email "ci@shopflow.com"
           git config user.name "CI Bot"
           git add .
@@ -116,7 +115,7 @@ jobs:
           token: ${{ secrets.GH_TOKEN }}
       - name: Update Prod Image Tag
         run: |
-          sed -i "s|tag:.*|tag: ${{ github.sha }}|g" helm/shopflow/values-prod.yaml
+          sed -i "s|tag:.*|tag: ${{ github.sha }}|g" helm/shopflow/values.yaml
           git config user.email "ci@shopflow.com"
           git config user.name "CI Bot"
           git add .
